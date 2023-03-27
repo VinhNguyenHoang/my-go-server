@@ -13,13 +13,14 @@ func main() {
 
 	http.HandleFunc("/url", handler)
 
-	httpPort := os.Getenv("HTTP_PORT")
-	if httpPort == "" {
-		httpPort = "8080"
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
 	}
 
-	fmt.Printf("Starting server at port %s...\n", httpPort)
-	log.Fatal(http.ListenAndServe(":"+httpPort, nil))
+	fmt.Printf("Starting server at port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
 
 func handlerMain(w http.ResponseWriter, r *http.Request) {
