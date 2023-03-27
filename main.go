@@ -34,4 +34,5 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "body:\n%s\n", body)
+	log.Printf("body:\n%s\n", body)
 }
