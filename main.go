@@ -5,14 +5,21 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 	http.HandleFunc("/", handlerMain)
 
 	http.HandleFunc("/url", handler)
-	fmt.Print("Starting server at port 8080...\n")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+
+	httpPort := os.Getenv("HTTP_PORT")
+	if httpPort == "" {
+		httpPort = "8080"
+	}
+
+	fmt.Printf("Starting server at port %s...\n", httpPort)
+	log.Fatal(http.ListenAndServe(":"+httpPort, nil))
 }
 
 func handlerMain(w http.ResponseWriter, r *http.Request) {
