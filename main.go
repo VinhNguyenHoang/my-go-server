@@ -33,6 +33,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("could not read body: %s\n", err)
 	}
 
-	// fmt.Fprintf(w, "body:\n%s\n", body)
+	fmt.Fprintf(w, "body:\n%s\n", body)
 	log.Printf("body:\n%s\n", body)
 }
