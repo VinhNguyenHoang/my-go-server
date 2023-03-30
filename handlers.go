@@ -46,7 +46,14 @@ func (s *EmailServer) WebhookTest() func(c *gin.Context) {
 }
 
 func (s *EmailServer) SendEmail() func(c *gin.Context) {
-	return func(c *gin.Context) {
-		s.SendGridClient.SendEmail()
+	return func(ctx *gin.Context) {
+		toAddress := ctx.Query("to_address")
+		if toAddress == "" {
+			ctx.IndentedJSON(http.StatusBadRequest, gin.H{
+				"message": "address is empty",
+			})
+			return
+		}
+		s.SendGridClient.SendEmail(toAddress)
 	}
 }
