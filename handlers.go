@@ -16,6 +16,7 @@ func (*EmailServer) Main() func(c *gin.Context) {
 	}
 }
 
+// this handler only handle request from SendGrid
 func (s *EmailServer) Webhook() func(c *gin.Context) {
 	return func(ctx *gin.Context) {
 		jsonData, err := ioutil.ReadAll(ctx.Request.Body)
@@ -29,6 +30,7 @@ func (s *EmailServer) Webhook() func(c *gin.Context) {
 			return
 		}
 		s.Repo.InsertMany(s.DbConn, string(jsonData))
+		log.Println(jsonData)
 		ctx.IndentedJSON(http.StatusOK, string(jsonData))
 	}
 }
