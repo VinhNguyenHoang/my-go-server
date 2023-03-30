@@ -28,7 +28,7 @@ func (*SendGridClient) TriggerWebhookTest() (*rest.Response, error) {
 }`)
 	response, err := sendgrid.API(request)
 	if err != nil {
-		return nil, fmt.Errorf("failed TriggerWebhookTest: %v", err)
+		return nil, fmt.Errorf("failed TriggerWebhookTest: %+v", err)
 	} else {
 		fmt.Println(response.StatusCode)
 		fmt.Println(response.Body)
@@ -49,7 +49,7 @@ func (*SendGridClient) SendEmail() (*rest.Response, error) {
 	client := sendgrid.NewSendClient(SG_API_KEY)
 	response, err := client.Send(message)
 	if err != nil {
-		return nil, fmt.Errorf("failed SendEmail: %v", err)
+		return nil, fmt.Errorf("failed SendEmail: %+v", err)
 	} else {
 		fmt.Println(response.StatusCode)
 		fmt.Println(response.Body)

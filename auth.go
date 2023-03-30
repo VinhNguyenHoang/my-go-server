@@ -34,11 +34,11 @@ func HandleSGAuthentication(header http.Header, payload []byte) error {
 
 	pKey, err := ConvertPublicKeyBase64ToECDSA(SG_PUBLIC_KEY)
 	if err != nil {
-		return fmt.Errorf("failed ConvertPublicKeyBase64ToECDSA: %v", err)
+		return fmt.Errorf("failed ConvertPublicKeyBase64ToECDSA: %+v", err)
 	}
 	passed, err := VerifySignature(pKey, payload, sgn, timeStamp)
 	if err != nil {
-		return fmt.Errorf("failed VerifySignature; %v", err)
+		return fmt.Errorf("failed VerifySignature; %+v", err)
 	}
 
 	if !passed {

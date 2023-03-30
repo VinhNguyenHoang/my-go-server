@@ -73,7 +73,7 @@ func InitDB(ctx context.Context) *mongo.Client {
 
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
-		log.Fatalf("error init DB: %v", err)
+		log.Fatalf("error init DB: %+v", err)
 	}
 
 	return client
@@ -103,7 +103,7 @@ func (s *EmailServer) Run() {
 	fmt.Printf("Starting Gin server at port %s...\n", PORT)
 	err := s.GinEngine.Run(":" + PORT)
 	if err != nil {
-		log.Fatalf("error run server: %v", err)
+		log.Fatalf("error run server: %+v", err)
 	}
 }
 

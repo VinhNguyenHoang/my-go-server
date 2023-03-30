@@ -21,12 +21,12 @@ func (s *EmailServer) Webhook() func(c *gin.Context) {
 	return func(ctx *gin.Context) {
 		jsonData, err := ioutil.ReadAll(ctx.Request.Body)
 		if err != nil {
-			log.Fatalf("error get body: %v", err)
+			log.Fatalf("error get body: %+v", err)
 			return
 		}
 		err = HandleSGAuthentication(ctx.Request.Header, jsonData)
 		if err != nil {
-			log.Println("failed handle SG Authentication: %v", err)
+			log.Println("failed handle SG Authentication: %+v", err)
 			ctx.IndentedJSON(http.StatusBadRequest, gin.H{
 				"message": err,
 			})
