@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -26,9 +27,9 @@ func (s *EmailServer) Webhook() func(c *gin.Context) {
 		}
 		err = HandleSGAuthentication(ctx.Request.Header, jsonData)
 		if err != nil {
-			log.Println("failed handle SG Authentication: %+v", err)
+			log.Println(fmt.Sprintf("failed handle SG Authentication: %+v", err))
 			ctx.IndentedJSON(http.StatusBadRequest, gin.H{
-				"message": err,
+				"message": err.Error(),
 			})
 			return
 		}
