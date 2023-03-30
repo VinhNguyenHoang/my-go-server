@@ -26,7 +26,10 @@ func (s *EmailServer) Webhook() func(c *gin.Context) {
 		}
 		err = HandleSGAuthentication(ctx.Request.Header, jsonData)
 		if err != nil {
-			log.Fatalf("failed handle SG Authentication: %v", err)
+			log.Println("failed handle SG Authentication: %v", err)
+			ctx.IndentedJSON(http.StatusBadRequest, gin.H{
+				"message": err,
+			})
 			return
 		}
 		s.Repo.InsertMany(s.DbConn, string(jsonData))

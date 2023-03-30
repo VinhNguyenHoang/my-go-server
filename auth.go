@@ -28,6 +28,10 @@ func HandleSGAuthentication(header http.Header, payload []byte) error {
 	sgn := header.Get(VerificationHTTPHeader)
 	timeStamp := header.Get(TimestampHTTPHeader)
 
+	if sgn == "" || timeStamp == "" {
+		return fmt.Errorf("invalid request")
+	}
+
 	pKey, err := ConvertPublicKeyBase64ToECDSA(SG_PUBLIC_KEY)
 	if err != nil {
 		return fmt.Errorf("failed ConvertPublicKeyBase64ToECDSA: %v", err)
