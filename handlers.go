@@ -16,7 +16,7 @@ func (*EmailServer) Main() func(c *gin.Context) {
 	}
 }
 
-func (*EmailServer) Webhook() func(c *gin.Context) {
+func (s *EmailServer) Webhook() func(c *gin.Context) {
 	return func(ctx *gin.Context) {
 		jsonData, err := ioutil.ReadAll(ctx.Request.Body)
 		if err != nil {
@@ -28,6 +28,7 @@ func (*EmailServer) Webhook() func(c *gin.Context) {
 			log.Fatalf("failed handle SG Authentication: %v", err)
 			return
 		}
+		s.Repo.InsertMany(s.DbConn, string(jsonData))
 		ctx.IndentedJSON(http.StatusOK, string(jsonData))
 	}
 }
