@@ -54,6 +54,15 @@ func (s *EmailServer) SendEmail() func(c *gin.Context) {
 			})
 			return
 		}
-		s.SendGridClient.SendEmail(toAddress)
+		resp, err := s.SendGridClient.SendEmail(toAddress)
+		if err != nil {
+			ctx.JSON(http.StatusInternalServerError, gin.H{
+				"message": err.Error(),
+			})
+		}
+
+		ctx.JSON(http.StatusOK, gin.H{
+			"message": resp,
+		})
 	}
 }

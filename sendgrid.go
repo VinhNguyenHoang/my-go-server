@@ -41,7 +41,6 @@ func (*SendGridClient) TriggerWebhookTest() (*rest.Response, error) {
 func (*SendGridClient) SendEmail(toAddress string) (*rest.Response, error) {
 	from := mail.NewEmail("Example User", "truongan.phan@manabie.com")
 	subject := "Sending with Twilio SendGrid is Fun"
-	// to := mail.NewEmail("Example User", "panhhuu@gmail.com")
 	to := mail.NewEmail("Example User", toAddress)
 	plainTextContent := "and easy to do anywhere, even with Go"
 	htmlContent := "<strong>and easy to do anywhere, even with Go. <a href=\"https://manabie.com\">click here</a></strong>"
