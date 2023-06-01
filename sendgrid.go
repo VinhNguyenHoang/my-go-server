@@ -48,7 +48,7 @@ func (*SendGridClient) SendEmail(toAddress string, customData string) (*rest.Res
 	p := mail.NewPersonalization()
 	p.AddTos(to)
 	p.SetCustomArg("org_id", customData)
-	message.AddPersonalizations(p)
+	message.Personalizations = []*mail.Personalization{p}
 	client := sendgrid.NewSendClient(SG_API_KEY)
 	response, err := client.Send(message)
 	if err != nil {
