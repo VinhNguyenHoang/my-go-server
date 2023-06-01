@@ -46,6 +46,7 @@ func (*SendGridClient) SendEmail(toAddress string, customData string) (*rest.Res
 	htmlContent := "<strong>and easy to do anywhere, even with Go. <a href=\"https://manabie.com\">click here</a></strong>"
 	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
 	p := mail.NewPersonalization()
+	p.AddTos(to)
 	p.SetCustomArg("org_id", customData)
 	message.AddPersonalizations(p)
 	client := sendgrid.NewSendClient(SG_API_KEY)
