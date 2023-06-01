@@ -61,7 +61,7 @@ type EmailServer struct {
 
 	SendGridClient interface {
 		TriggerWebhookTest() (*rest.Response, error)
-		SendEmail(toAddress string) (*rest.Response, error)
+		SendEmail(toAddress string, customData string) (*rest.Response, error)
 	}
 }
 

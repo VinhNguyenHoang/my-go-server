@@ -54,7 +54,14 @@ func (s *EmailServer) SendEmail() func(c *gin.Context) {
 			})
 			return
 		}
-		resp, err := s.SendGridClient.SendEmail(toAddress)
+		orgID := ctx.Query("org_id")
+		if orgID == "" {
+			ctx.IndentedJSON(http.StatusBadRequest, gin.H{
+				"message": "org is empty",
+			})
+			return
+		}
+		resp, err := s.SendGridClient.SendEmail(toAddress, orgID)
 		if err != nil {
 			ctx.JSON(http.StatusInternalServerError, gin.H{
 				"message": err.Error(),
